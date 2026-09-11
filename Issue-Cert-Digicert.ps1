@@ -1,12 +1,10 @@
-param(    
-    [string]$Path = "E:\Cert",
-    [string]$OpenSSL = "C:\Program Files\OpenSSL_win32\openssl.exe"
-)
 
 . "$PSScriptRoot\Functions\Create-Folder.ps1"
 . "$PSScriptRoot\Functions\Generate-CSR.ps1"
 . "$PSScriptRoot\Functions\Unzip-Files-Get-Crt.ps1"
 . "$PSScriptRoot\Functions\Generate-Files.ps1"
+
+. "$PSScriptRoot\Config\Parameters.ps1"
 
 
 function Main {
@@ -15,7 +13,7 @@ function Main {
         
     )
     Write-Host "****************************************************" -ForegroundColor Cyan
-    Write-Host "Script para emisión de certificados en Digicert v1.0" -ForegroundColor Cyan
+    Write-Host "Script para emisiï¿½n de certificados en Digicert v1.0" -ForegroundColor Cyan
     Write-Host "****************************************************" -ForegroundColor Cyan
     Write-Host ""
 
@@ -33,7 +31,7 @@ function Main {
     Write-Host "Ahora obten el zip con el certificado desde DigiCert (utilizando el CSR), y pegalo en la carpeta:" -ForegroundColor Cyan
     Write-Host $OutputFolder 
     Write-Host ""
-    Write-Host "Pulsa enter para cuando esté listo..." -ForegroundColor Cyan
+    Write-Host "Pulsa enter para cuando estï¿½ listo..." -ForegroundColor Cyan
     $null = Read-Host
 
     # Descoprime el zip y devuelve el fichero crt
