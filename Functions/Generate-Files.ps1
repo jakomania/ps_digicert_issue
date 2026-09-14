@@ -3,9 +3,7 @@ function Generate-Files {
 
 param(
     
-    #[string]$CerFile = "E:\Cert\star_trasmediterranea_es_09092026-TEST\star_trasmediterranea_es_1472796629\star_trasmediterranea_es.crt",
-    [string]$CerFile,
-    #[string]$OpenSSL = "C:\Program Files\OpenSSL_win32\openssl.exe"
+    [string]$CerFile,    
     [string]$OpenSSL
 )
 
