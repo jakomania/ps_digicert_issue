@@ -25,8 +25,8 @@ function Main {
     # Creamos directorio de destino
     $OutputFolder, $SafeName = Create-Folder -Domain $Domain -Path $Path
 
-    # Generamos el CSR y la request de enrollment
-    Generate-CSR -Domain $Domain -OutputFolder $OutputFolder -SafeName $SafeName -SubjAtributes $SubjAtributes
+    # # Generamos el CSR y la request de enrollment
+    # Generate-CSR -Domain $Domain -OutputFolder $OutputFolder -SafeName $SafeName -SubjAtributes $SubjAtributes
 
     # Instrucciones y pausa espera por el fichero zip
     Write-Host ""
@@ -39,7 +39,7 @@ function Main {
     # Descoprime el zip y devuelve el fichero crt
     $CerFile = Unzip-Files-Get-Crt -OutputFolder $OutputFolder -SafeName $SafeName
 
-    # # Exporta el certificado y genera los fichreos en diferentes formatos
+    # Exporta el certificado y genera los fichreos en diferentes formatos
     Generate-Files -CerFile $CerFile -OpenSSL $OpenSSL -SafeName $SafeName
        
 }

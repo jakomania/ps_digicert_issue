@@ -88,8 +88,8 @@ $PlainPwd = [Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
 # Clave sin cifrar
 #
 & $OpenSSL pkey `
-    -in "$OutputFolder\$SafeName-priv-np.key" `
-    -out "$OutputFolder\private.key" `
+    -in "$OutputFolder\$SafeName-priv.key" `
+    -out "$OutputFolder\$SafeName-priv-np.key" `
     -passin "pass:$PlainPwd"
 
 if ($LASTEXITCODE -ne 0) {
