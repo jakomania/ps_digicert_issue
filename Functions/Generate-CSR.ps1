@@ -2,6 +2,7 @@ function Generate-CSR {
 
 param(
     [string]$Domain,
+    [string]$SubjAtributes,
     [string]$OutputFolder,
     [string]$SafeName
 )
@@ -10,12 +11,14 @@ param(
 $InfFile = Join-Path $OutputFolder "$SafeName.inf"
 $CsrFile = Join-Path $OutputFolder "$SafeName.csr"
 
+$SubjString = "$Domain$SubjAtributes"
+
 @"
 [Version]
 Signature="`$Windows NT`$"
 
 [NewRequest]
-Subject = "CN=$Domain,O=Artra SSCC S.L.,OU=Artra,L=Las Palmas,S=Las Palmas,C=ES"
+Subject = "CN=$SubjString"
 
 KeyAlgorithm = RSA
 KeyLength = 3072

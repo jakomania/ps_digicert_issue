@@ -9,7 +9,9 @@
 
 function Main {
     param(
-        [string]$Path
+        [string]$Path,
+        [string]$SubjAtributes
+        
         
     )
     Write-Host "****************************************************" -ForegroundColor Cyan
@@ -24,7 +26,7 @@ function Main {
     $OutputFolder, $SafeName = Create-Folder -Domain $Domain -Path $Path
 
     # Generamos el CSR y la request de enrollment
-    Generate-CSR -Domain $Domain -OutputFolder $OutputFolder -SafeName $SafeName
+    Generate-CSR -Domain $Domain -OutputFolder $OutputFolder -SafeName $SafeName -SubjAtributes $SubjAtributes
 
     # Instrucciones y pausa espera por el fichero zip
     Write-Host ""
@@ -43,4 +45,4 @@ function Main {
 }
 
 
-Main -Path $Path -OpenSSL $OpenSSL
+Main -Path $Path -OpenSSL $OpenSSL -SubjAtributes $SubjAtributes
