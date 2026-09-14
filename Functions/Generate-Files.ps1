@@ -3,7 +3,8 @@ function Generate-Files {
 
 param(
     
-    [string]$CerFile,    
+    [string]$CerFile,
+    [string]$SafeName,    
     [string]$OpenSSL
 )
 
@@ -48,7 +49,7 @@ if (!$Cert.HasPrivateKey) {
 
 $PfxPassword = Read-Host "Introduce password" -AsSecureString
 
-$PfxFile = Join-Path $OutputFolder "wildcard.pfx"
+$PfxFile = Join-Path $OutputFolder "$SafeName.pfx"
 
 Export-PfxCertificate `
     -Cert $Cert `
@@ -70,7 +71,7 @@ $PlainPwd = [Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
     -in $PfxFile `
     -clcerts `
     -nokeys `
-    -out "$OutputFolder\certificate.pem" `
+    -out "$OutputFolder\$SafeName-cert.crt" `
     -passin "pass:$PlainPwd"
 
 #
@@ -79,7 +80,7 @@ $PlainPwd = [Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
 & $OpenSSL pkcs12 `
     -in $PfxFile `
     -nocerts `
-    -out "$OutputFolder\private-encrypted.key" `
+    -out "$OutputFolder\$SafeName-priv.key" `
     -passin "pass:$PlainPwd" `
     -passout "pass:$PlainPwd"
 
@@ -87,17 +88,17 @@ $PlainPwd = [Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
 # Clave sin cifrar
 #
 & $OpenSSL pkey `
-    -in "$OutputFolder\private-encrypted.key" `
+    -in "$OutputFolder\$SafeName-priv-np.key" `
     -out "$OutputFolder\private.key" `
     -passin "pass:$PlainPwd"
 
 if ($LASTEXITCODE -ne 0) {
-    throw "Error generando private.key"
+    throw "Error generando private key"
 }
 #
 # Cadena
 #
-$ChainFile = "$OutputFolder\chain.pem"
+$ChainFile = "$OutputFolder\$SafeName-chain.crt"
 
 & $OpenSSL pkcs12 `
     -in $PfxFile `
@@ -120,17 +121,17 @@ $Certificates -join "`r`n" | Set-Content $ChainFile
 # Full Chain
 #
 Get-Content `
-    "$OutputFolder\certificate.pem",
-    "$OutputFolder\chain.pem" |
-        Set-Content "$OutputFolder\fullchain.pem"
+    "$OutputFolder\$SafeName-cert.crt",
+    "$OutputFolder\$SafeName-chain.crt" |
+        Set-Content "$OutputFolder\$SafeName-fullchain.crt"
 
 Write-Host ""
 Write-Host "Generados correctamente:" -ForegroundColor Green
-Write-Host "wildcard.pfx"
-Write-Host "certificate.pem"
-Write-Host "chain.pem"
-Write-Host "fullchain.pem"
-Write-Host "private-encrypted.key"
-Write-Host "private.key"
+Write-Host "$SafeName.pfx"
+Write-Host "$SafeName-cert.crt"
+Write-Host "$SafeName-chain.crt"
+Write-Host "$SafeName-fullchain.crt"
+Write-Host "$SafeName-priv-np.key"
+Write-Host "$SafeName-priv.key"
 
 }

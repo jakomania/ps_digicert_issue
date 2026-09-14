@@ -40,7 +40,7 @@ function Main {
     $CerFile = Unzip-Files-Get-Crt -OutputFolder $OutputFolder -SafeName $SafeName
 
     # # Exporta el certificado y genera los fichreos en diferentes formatos
-    Generate-Files -CerFile $CerFile -OpenSSL $OpenSSL
+    Generate-Files -CerFile $CerFile -OpenSSL $OpenSSL -SafeName $SafeName
        
 }
 
