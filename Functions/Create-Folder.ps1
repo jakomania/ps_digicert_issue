@@ -7,17 +7,19 @@ param(
 )
 
 
-$StringDate = Get-Date -UFormat "%d%m%Y"
+$StringDate = Get-Date -UFormat "%d-%m-%Y"
 
 $SafeName = $Domain.Replace('*','star').Replace('.','_')
 
-$OutputFolder = Join-Path $Path "$SafeName-$StringDate"
+$FolderStruct = Join-Path $SafeName $StringDate
 
-$Res = Read-Host "Especifica ruta donde se creará la carpeta destino o pulsa enter para default ($Path)" 
+$OutputFolder = Join-Path $Path $FolderStruct
+
+$Res = Read-Host "Especifica ruta donde crear la estructura de directorios destino o pulsa enter para default ($Path)" 
 
 
 if ($Res -ne "" ) {
-    $OutputFolder = Join-Path $Res "$SafeName-$StringDate-TEST"
+    $OutputFolder = Join-Path $Res $FolderStruct
 }
 
 New-Item -ItemType Directory -Path $OutputFolder -Force | Out-Null
