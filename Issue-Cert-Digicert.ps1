@@ -25,8 +25,8 @@ function Main {
     # Creamos directorio de destino
     $OutputFolder, $SafeName = Create-Folder -Domain $Domain -Path $Path
 
-    # # Generamos el CSR y la request de enrollment
-    # Generate-CSR -Domain $Domain -OutputFolder $OutputFolder -SafeName $SafeName -SubjAtributes $SubjAtributes
+    # Generamos el CSR y la request de enrollment
+    Generate-CSR -Domain $Domain -OutputFolder $OutputFolder -SafeName $SafeName -SubjAtributes $SubjAtributes
 
     # Instrucciones y pausa espera por el fichero zip
     Write-Host ""
