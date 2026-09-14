@@ -1,9 +1,7 @@
 ﻿function Unzip-Files-Get-Crt {
 
     param(
-        # [string]$OutputFolder="E:\Cert\star_trasmediterranea_es_09092026-TEST",
         [string]$OutputFolder,
-        # [string]$SafeName="star_trasmediterranea_es"
         [string]$SafeName
     )
 
